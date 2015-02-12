@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
   /* Initialize experiment NFstandard.glb */
 //  glbInitExperiment("0709-nova.glb",&glb_experiment_list[0],&glb_num_of_exps); 
   glbInitExperiment("NOvA.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("Reactor2.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("NFstandard.glb",&glb_experiment_list[0],&glb_num_of_exps); 
  
   /* Intitialize output */
@@ -100,12 +101,16 @@ int main(int argc, char *argv[])
   int ARG_EPS_D_TAUTAU = 50;
   
   /* Define standard oscillation parameters */
-  double theta12 = asin(sqrt(0.8))/2;
-  double theta13 = asin(sqrt(0.001))/2;
-  double theta23 = M_PI/4;
-  double deltacp = M_PI/2;
-  double sdm = 7e-5;
-  double ldm = 2e-3;
+//  double theta12 = asin(sqrt(0.8))/2;
+  double theta12 = 0.563942;
+//  double theta13 = asin(sqrt(0.001))/2;
+  double theta13 = 0.154085;
+//  double theta23 = M_PI/4;
+  double theta23 = 0.684719;
+//  double deltacp = M_PI/2;
+  double deltacp = 0.0;
+  double sdm = 7.54e-5;
+  double ldm = 2.43e-3;
 
   double eps_s_ee = 0.0;
   double aeps_s_ee = 0.0;
@@ -129,12 +134,15 @@ int main(int argc, char *argv[])
   double eps_m_ee = 0.0;
   double eps_m_emu = 0.0;
   double deps_m_emu = 0.0;
-  double eps_m_etau = 0.2;
+//  double eps_m_etau = 0.2;
+  double eps_m_etau = 0.0;
   double deps_m_etau = 0.0;
   double eps_m_mumu = 0.0;
-  double eps_m_mutau = 0.01;
+//  double eps_m_mutau = 0.01;
+  double eps_m_mutau = 0.0;
   double deps_m_mutau = 0.0;
-  double eps_m_tautau = 0.1;
+//  double eps_m_tautau = 0.1;
+  double eps_m_tautau = 0.0;
 
   double eps_d_ee = 0.0;
   double aeps_d_ee = 0.0;
@@ -161,7 +169,6 @@ int main(int argc, char *argv[])
 
 //NSI Params
   glbRegisterProbabilityEngine(6*(n_flavors)*(n_flavors) - n_flavors,
-//  glbRegisterProbabilityEngine(15,
 	&snu_probability_matrix,
 	&snu_set_oscillation_parameters,
 	&snu_get_oscillation_parameters,
