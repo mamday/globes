@@ -1,0 +1,86 @@
+**********Version 3.0.1
+
+18/01/2007 JK
+        - Updated copyright notices in all code files
+        - Included title of new paper in README
+        - Removed #include <ltdl.h> from globes.c
+
+**********Version 3.0.2
+
+18/01/2007 MR
+        - glb_fluxes.c modified: now contains exact beta beam spectrum
+                -> no normalization factor needed any more
+        - BBvar_WC.glb and BBvar_TASD.glb modified accordingly
+        - T2K.glb now has same @norm as T2HK.glb (matches Table 1, hep-ph/0204352)
+
+**********Version 3.0.4
+
+19/01/2007 PH
+        - fixed a bug in the defintions parser of globes.c
+
+**********Version 3.0.5
+
+23/01/2007 JK
+        - Added hep-ph number of new paper to README
+        - Fixed minor problem which occurred for duplicate channel definitions
+
+
+**********Version 3.0.6
+
+23/01/2007 PH
+	- Added a distcheck-hook which tests the md5-sums file in data 
+
+**********Version 3.0.7
+
+25/01/2007 PH
+	- the configury now handles --disable-rpath correctly, which
+	is what should be used on Mac OS X. Updated to libool 1.5.22
+	and autoconf 2.59.
+
+	- undefined AEDL variables are no longer defaulting to zero
+	but to NaN, which ensures that they create an ERROR
+
+25/01/2007 JK
+        - Corrected correlated flux normalization in D-Chooz_far.glb
+          from 2.0% to 2.8%
+
+**********Version 3.0.8
+
+29/03/2007 JK
+        - Corrected a bug in the glb_likelihood: In the calculation
+          of the Poisson chi^2, the "true" and fitted rates were
+          exchanged. This has a visible effect only for very small
+          event rates.
+
+17/04/2007 JK
+        - Fixed a small bug in glbDefaultExp, leading to a possible read
+          beyond array boundaries of smear_data[0]->bin_center 
+
+
+**********Version 3.0.9
+
+24/05/2007 PH
+	- Fixed BUG#18
+
+**********Version 3.0.10
+29/06/2007 JK
+        - Fixed another potential problem in glb_likelihood (chi^2 could
+          become negative for true_rate=0, fit_rate<0)
+        - Fixed problem in glbShiftEnergyScale: for negative shifts, the
+          leftmost bin was always set to 0, instead of some interpolation
+          between 0 and its original value. This is not a big problem, but
+          it leads to glb_likelihood returning 1e200, which can confuse
+          the minimizer if it happens in the very first evaluation of chi^2.
+        - Added DocPlots.nb to the distribution
+
+**********Version 3.0.11
+13/09/2007 JK
+        - Removed libstdc++ from Makefile in source directory
+        - Declared fa, fb, fc and fu as long double in glb_hybrid_bracket
+          to avoid problems with extra floating point digits on x86 CPUs
+          (in the case of flat directions in parameter space, comparisons
+          could yield wrong results if the operands were identical, but
+          one of them was stored in main memory while the other was retained
+          in the floating point registers). See also http://gcc.gnu.org/bugzilla/,
+          entryg No. #323.
+

@@ -1,0 +1,305 @@
+/* config-h.in.  Generated from configure.in by autoheader.  */
+
+/* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
+   systems. This function is required for `alloca.c' support on those systems.
+   */
+#undef CRAY_STACKSEG_END
+
+/* Define to 1 if using `alloca.c'. */
+#undef C_ALLOCA
+
+/* The version of libglb in libtool format c:r:a */
+#undef GLB_LIBVERSION
+
+/* Define to 1 if you have `alloca' after including <alloca.h>, a header that
+   may be supplied by this distribution. */
+#undef HAVE_ALLOCA
+
+/* Define HAVE_ALLOCA_H for backward compatibility with older code that
+   includes <alloca.h> only if HAVE_ALLOCA_H is defined. */
+#undef HAVE_ALLOCA_H
+
+/* Define to 1 if you have the declaration of `clearerr_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_CLEARERR_UNLOCKED
+
+/* Define to 1 if you have the declaration of `feof_unlocked', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FEOF_UNLOCKED
+
+/* Define to 1 if you have the declaration of `ferror_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FERROR_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fflush_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FFLUSH_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fgets_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FGETS_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fputc_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FPUTC_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fputs_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FPUTS_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fread_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FREAD_UNLOCKED
+
+/* Define to 1 if you have the declaration of `fwrite_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FWRITE_UNLOCKED
+
+/* Define to 1 if you have the declaration of `getchar_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_GETCHAR_UNLOCKED
+
+/* Define to 1 if you have the declaration of `getc_unlocked', and to 0 if you
+   don't. */
+#undef HAVE_DECL_GETC_UNLOCKED
+
+/* Define to 1 if you have the declaration of `program_invocation_name', and
+   to 0 if you don't. */
+#undef HAVE_DECL_PROGRAM_INVOCATION_NAME
+
+/* Define to 1 if you have the declaration of `program_invocation_short_name',
+   and to 0 if you don't. */
+#undef HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+
+/* Define to 1 if you have the declaration of `putchar_unlocked', and to 0 if
+   you don't. */
+#undef HAVE_DECL_PUTCHAR_UNLOCKED
+
+/* Define to 1 if you have the declaration of `putc_unlocked', and to 0 if you
+   don't. */
+#undef HAVE_DECL_PUTC_UNLOCKED
+
+/* Define to 1 if you have the declaration of `strnlen', and to 0 if you
+   don't. */
+#undef HAVE_DECL_STRNLEN
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <EXTERN.h> header file. */
+#undef HAVE_EXTERN_H
+
+/* Define to 1 if you have the <features.h> header file. */
+#undef HAVE_FEATURES_H
+
+/* Define to 1 if you have the `flockfile' function. */
+#undef HAVE_FLOCKFILE
+
+/* Define to 1 if you have the `funlockfile' function. */
+#undef HAVE_FUNLOCKFILE
+
+/* Define to 1 if you have the <getopt.h> header file. */
+#undef HAVE_GETOPT_H
+
+/* Define to 1 if you have the `getopt_long_only' function. */
+#undef HAVE_GETOPT_LONG_ONLY
+
+/* Define to 1 if you have the <gsl/gsl_errno.h> header file. */
+#undef HAVE_GSL_GSL_ERRNO_H
+
+/* Define to 1 if you have the <gsl/gsl_math.h> header file. */
+#undef HAVE_GSL_GSL_MATH_H
+
+/* Define to 1 if you have the <gsl/gsl_sf_erf.h> header file. */
+#undef HAVE_GSL_GSL_SF_ERF_H
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if <inttypes.h> exists, doesn't clash with <sys/types.h>, and
+   declares uintmax_t. */
+#undef HAVE_INTTYPES_H_WITH_UINTMAX
+
+/* Define to 1 if you have the `m' library (-lm). */
+#undef HAVE_LIBM
+
+/* Define to 1 if you have the <linewrap.h> header file. */
+#undef HAVE_LINEWRAP_H
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `mempcpy' function. */
+#undef HAVE_MEMPCPY
+
+/* Define to 1 if you have the `mkstemp' function. */
+#undef HAVE_MKSTEMP
+
+/* Define to 1 if libc includes obstacks. */
+#undef HAVE_OBSTACK
+
+/* Define to 1 if you have the <perl.h> header file. */
+#undef HAVE_PERL_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define if <stdint.h> exists, doesn't clash with <sys/types.h>, and declares
+   uintmax_t. */
+#undef HAVE_STDINT_H_WITH_UINTMAX
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strcasecmp' function. */
+#undef HAVE_STRCASECMP
+
+/* Define to 1 if you have the `strchrnul' function. */
+#undef HAVE_STRCHRNUL
+
+/* Define to 1 if you have the `strdup' function. */
+#undef HAVE_STRDUP
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strncasecmp' function. */
+#undef HAVE_STRNCASECMP
+
+/* Define to 1 if you have the `strndup' function. */
+#undef HAVE_STRNDUP
+
+/* Define to 1 if you have the <sysexits.h> header file. */
+#undef HAVE_SYSEXITS_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the `tempnam' function. */
+#undef HAVE_TEMPNAM
+
+/* Define if you have the 'uintmax_t' type in <stdint.h> or <inttypes.h>. */
+#undef HAVE_UINTMAX_T
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define if you have the 'unsigned long long' type. */
+#undef HAVE_UNSIGNED_LONG_LONG
+
+/* Define to 1 if you have the <XSUB.h> header file. */
+#undef HAVE_XSUB_H
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* If using the C implementation of alloca, define if you know the
+   direction of stack growth for your system; otherwise it will be
+   automatically deduced at runtime.
+	STACK_DIRECTION > 0 => grows toward higher addresses
+	STACK_DIRECTION < 0 => grows toward lower addresses
+	STACK_DIRECTION = 0 => direction of growth unknown */
+#undef STACK_DIRECTION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
+
+/* Define to 1 if on AIX 3.
+   System headers sometimes define this.
+   We just want to avoid a redefinition error message.  */
+#ifndef _ALL_SOURCE
+# undef _ALL_SOURCE
+#endif
+
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+# undef _GNU_SOURCE
+#endif
+
+/* Define to 1 if on MINIX. */
+#undef _MINIX
+
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+#undef _POSIX_1_SOURCE
+
+/* Define to 1 if you need to in order for `stat' and other things to work. */
+#undef _POSIX_SOURCE
+
+/* Enable extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# undef __EXTENSIONS__
+#endif
+#ifndef _POSIX_PTHREAD_SEMANTICS
+# undef _POSIX_PTHREAD_SEMANTICS
+#endif
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define to rpl_getopt if the replacement function should be used. */
+#undef getopt
+
+/* Define to rpl_getopt_long if the replacement function should be used. */
+#undef getopt_long
+
+/* Define to rpl_getopt_long_only if the replacement function should be used.
+   */
+#undef getopt_long_only
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
+/* Define to rpl_optarg if the replacement variable should be used. */
+#undef optarg
+
+/* Define to rpl_optind if the replacement variable should be used. */
+#undef optind
+
+/* Define to rpl_optopt if the replacement variable should be used. */
+#undef optopt
+
+/* Define to equivalent of C99 restrict keyword, or to nothing if this is not
+   supported. Do not define if restrict is supported directly. */
+#undef restrict
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t
+
+/* Define to rpl_strnlen if the replacement function should be used. */
+#undef strnlen
+
+/* Define to unsigned long or unsigned long long if <stdint.h> and
+   <inttypes.h> don't define. */
+#undef uintmax_t

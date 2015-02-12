@@ -1,0 +1,291 @@
+%!GLoBES
+
+$version="3.0.0"
+
+/* Copyright 2008, 2009 The GLoBES Team
+ *
+ * If you modify this file you have to rename it.
+ *
+ * If you are using this file for producing a scientific publication
+ * or a talk please cite the following references and check the supporting
+ * files for a similar comment.
+ *
+ * This file was used to produce the results in
+ *
+ #* @Article{Huber:2009xx,
+ #*  author = "Huber, P and Lindner, M and Schwetz, T and Winter, W",
+ #*  title = "First hint for CP violation in neutrino oscillations 
+ #*           from upcoming superbeam and reactor experiments",
+ #*  year = "2009",
+ #*  eprint = "arXiv:0907.1896"		
+ #* }
+ *	
+ * The description of NoVA (concerning the nu_e appearance signal) follows 
+ * the proposal as of March 15, 2005.
+ *
+ #* @Article{Ambats:2004js,
+ #*  author    = "Ambats, I. and others",
+ #*  collaboration = "NOvA",
+ #*  title     = "NOvA proposal to build a 30-kiloton off-axis detector to
+ #*               study neutrino oscillations in the Fermilab NuMI beamline",
+ #*  year      = "2004",
+ #*  eprint    = "hep-ex/0503053",
+ #*  SLACcitation  = "%%CITATION = HEP-EX 0503053;%%"
+ #* }
+ *
+ * The description of the nu_mu disappearance signal is taken from
+ *
+ #* @Article{Yang_2004,
+ #*  author    = "T. Yang and S. Woijcicki",
+ #*  collaboration = "NOvA",
+ #*  title     = "Study of physics sensitivity of $\nu_mu$ disappearance in 
+ #*               a totally active version of NoVA detector", 
+ #*  year      = "2004",
+ #*  eprint    = "Off-Axis-Note-SIM-30"
+ #* }
+ *
+ * Reduced detector mass to 15kt according to the outcome of the
+ * latest CD2 review.
+ *
+ * This an attempt to match the numbers in the October 2007 TDR. We
+ * try to be as close as possible to the their numbers given in tables
+ * 6.2-6.4. We have applied a correction factor for the different
+ * proton to neutron ratio in water and scintillator (our cross
+ * sections are for water). We had to apply an overall factor of 1.12
+ * to get the total event numbers right. The background efficiencies
+ * had to be increased to account for the effect of migrations. Also,
+ * at the current stage we do not account for neutrino BG in the
+ * anti-neutrino beam, which is not a good approximation, but we
+ * increase the BG effecienies as to match table 6.2.
+ *
+ * This an attempt to match the numbers in the October 2007 TDR. This
+ * file is to test the disappearance analysis. This analysis is termed
+ * preliminary in the TDR and there is very little information to go
+ * by.
+ * 
+ * This file deviates at following points from the TDR:
+ *
+ *  - 2%/Sqrt(E) resolution plus a flat 0.085GeV for Fermi motion
+ *  - 2% signal error
+ *  - 0.1% of all NC as background
+ *  - 10% background error
+ *  - 1% energy scale error
+ *
+ * Besides that, we use 100% of all nu_mu QE events. We use an energy
+ * window from 1 to 3 GeV. We use ME beam tune.
+ *
+ * Last Update: 13/07/09 <pahuber@vt.edu> 
+ */
+
+
+ /* We need to correct for the fact that our cross sections are
+ for water, i.e. a proton to neutron ratio of 5/4, whereas mineral oil
+ has a proton qratio closer to 4/3. That is we get correction factor
+ for nu ar of */
+
+NUB=1.066
+
+/* ####### Beam flux ####### */
+
+nuflux(#NoVA)<
+	@flux_file="0709-nova-plus.dat"
+	@time = 3	/* years */
+	@stored_muons = 6e20 /* POT yrs^-1 for 0.7 MW*/
+      	@norm = 1.12*6.47886918e-19 /* 1.12 is necessary to match the
+      	numbers in the 2007 TDR */ 
+>
+
+
+nuflux(#NoVAanti)<
+	@flux_file="0709-nova-minus.dat"
+	@time = 3	/* years */
+	@stored_muons = 6e20 /* POT yrs^-1 for 0.7 MW*/ 		
+	@norm = 1.12*NUB* 6.47886918e-19 /* 1.12 is necessary to match the
+      	numbers in the 2007 TDR */
+>
+
+
+/* ####### Detector settings ###### */
+
+$target_mass = 	        15.0	/* kt */
+
+
+ /* ####### Energy window ####### */
+
+$bins = 		20
+
+$emin = 	        0.5	/* GeV */
+$emax = 	        3.5	/* GeV */
+
+$sampling_points = 100		
+$sampling_min =    		0.05	/* GeV */
+$sampling_max =         	4.0	/* GeV */
+
+
+/* ####### Baseline setting ####### */
+
+$profiletype = 		3 
+
+/* The relatively larger signal is due to matter effects
+ * whereas the event numbers in the proposal assume two-flavour 
+ * vacuum oscillations
+ */
+
+$densitytab = 		{2.8} 
+$lengthtab = 		{810}	/* km */
+
+
+/* ####### Technical information ####### */
+
+$filter_state = 0 
+$filter_value = 1000000 
+
+
+/* ####### Energy resolution ####### */
+
+energy(#electron)<
+	@type = 1
+	@sigma_e = {0.0,0.1,0.0}
+>
+
+energy(#muon)<
+	@type = 1
+	@sigma_e = {0.0,0.05,0.0}
+>
+
+
+energy(#muonQE)<
+	@type = 1
+	@sigma_e = {0.0,0.02,0.085}
+>
+
+/* ####### Cross sections ####### */
+
+cross(#CC)<
+	@cross_file = "XCC.dat"
+>
+
+cross(#NC)<
+	@cross_file = "XNC.dat"
+>
+
+cross(#QE)<
+	@cross_file = "XQE.dat"
+>
+
+
+/* ####### Channel definitions ####### */
+
+channel(#nu_mu_CC)<
+	@channel = 	#NoVA:	+:	m:	m:	#CC:    #muon
+>
+
+
+channel(#nu_mu_NC)<
+	@channel = 	#NoVA:	+:	NOSC_m:	NOSC_m:	#NC:    #electron
+>
+
+channel(#nu_e_beam)<
+	@channel = 	#NoVA:	+:	e:	e:	#CC:    #electron
+>
+
+channel(#nu_e_signal)<
+	@channel = 	#NoVA:	+:	m:	e:	#CC:    #electron	
+>
+
+channel(#nu_bar_mu_CC)<
+	@channel = 	#NoVAanti:	-:	m:	m:	#CC:    #muon
+>
+
+channel(#nu_bar_mu_NC)<
+	@channel = 	#NoVAanti:	-:	NOSC_m:	NOSC_m:	#NC:    #electron
+>
+
+channel(#nu_bar_e_beam)<
+	@channel = 	#NoVAanti:	-:	e:	e:	#CC:    #electron
+>
+
+channel(#nu_bar_e_signal)<
+	@channel = 	#NoVAanti:	-:	m:	e:	#CC:    #electron	
+>
+
+
+
+
+channel(#nu_mu_QE)<
+	@channel = 	#NoVA:	+:	m:	m:	#QE:    #muonQE
+>
+
+channel(#nu_bar_mu_QE)<
+	@channel = 	#NoVAanti:	-:	m:	m:	#QE:    #muonQE
+>
+
+
+
+/* ####### Setting the rules ####### */
+
+
+ 
+rule(#Nu_E_Appearance)<
+ 	@signal = 0.26@#nu_e_signal
+	@signalerror = 0.05 : 0.025
+	
+	@background =  0.001*1.3@#nu_mu_CC : 1.4*0.002@#nu_mu_NC : 0.074*2.2@#nu_e_beam
+	@backgrounderror = 0.10 : 0.025
+		
+	@sys_on_function = "chiSpectrumCalib"
+	@sys_off_function = "chiNoSysSpectrum"
+	
+        @energy_window= 1.0 : 3.0
+>
+
+
+rule(#Nu_E_Bar_Appearance)<
+ 	@signal = 0.409@#nu_bar_e_signal
+	@signalerror = 0.05 : 0.025
+	
+	@background =  0.001*1.3@#nu_bar_mu_CC : 2.2*0.004@#nu_bar_mu_NC : 0.105*3.2@#nu_bar_e_beam
+	@backgrounderror = 0.10 : 0.025
+		
+	@sys_on_function = "chiSpectrumCalib"
+	@sys_off_function = "chiNoSysSpectrum"
+
+        @energy_window= 1.0 : 3.0
+
+>
+
+
+
+ 
+rule(#Nu_Mu_Disappearance)<
+ 	@signal = 1.0@#nu_mu_QE
+	@signalerror = 0.02 : 0.01
+	
+	@background =  0.001@#nu_mu_NC
+	@backgrounderror = 0.1 : 0.01
+		
+	@sys_on_function = "chiSpectrumCalib"
+	@sys_off_function = "chiNoSysSpectrum"
+	
+        @energy_window= 0.5 : 3.0
+>
+
+
+rule(#Nu_Mu_Bar_Disppearance)<
+ 	@signal = 1.0@#nu_bar_mu_QE
+	@signalerror = 0.02 : 0.01
+	
+	@background =  0.001@#nu_bar_mu_NC 
+	@backgrounderror = 0.1 : 0.01
+		
+	@sys_on_function = "chiSpectrumCalib"
+	@sys_off_function = "chiNoSysSpectrum"
+        @energy_window= 0.5 : 3.0
+
+>
+
+
+
+
+
+/**********************END**********************/

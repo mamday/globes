@@ -1,0 +1,24 @@
+BUG#17 Duplicate AEDL groups may not work properly
+
+From: Joachim Kopp
+Date: 23.01.07
+
+        If an AEDL group (energy, flux, nuflux, rule, cross) appears
+        twice (e.g. empty declaration and later definition), the parser
+        might assign the information from the second definition to the
+        wrong variables, since the counter for that type of environment
+        may already have a different value.
+        Possible solution: Use loc_count instead of num_of_XXX in function
+        grp_end, file glb_parser.y.
+-------------------------------------------------------------------------------
+
+BUG#18 Files opened by include in AEDL are not flclosed
+
+From: Walter Winter
+Date: 22.05.07
+
+	A program repeatedly loading an AEDL file containing 'include'
+	statements will fail with 'Can't open file' error after some
+	time (~1000 includes). 
+-------------------------------------------------------------------------------
+
