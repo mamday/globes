@@ -634,7 +634,8 @@ int snu_init_probability_engine(int _n_flavors, int _rotation_order[][2], int _p
 
   int k = 6;
   printf("K Begin: %d",k);
-  for (int i=4; i <= n_flavors; i++)            // Mass squared differences
+  const char *flavors[] = { "E", "MU", "TAU", "S1", "S2", "S3", "S4", "S5", "S6" };
+/*  for (int i=4; i <= n_flavors; i++)            // Mass squared differences
     sprintf(snu_param_strings[k++], "DM%d1", i);
 
   for (int i=1; i <= n_flavors; i++)            // Sterile mixing angles
@@ -644,14 +645,13 @@ int snu_init_probability_engine(int _n_flavors, int _rotation_order[][2], int _p
   for (int i=1; i <= n_phases-1; i++)
     sprintf(snu_param_strings[k++], "DELTA_%d", i); // Sterile phases
 
-  const char *flavors[] = { "E", "MU", "TAU", "S1", "S2", "S3", "S4", "S5", "S6" };
   for (int i=0; i < n_flavors; i++)             // Source NSI
     for (int j=0; j < n_flavors; j++)
     {
       sprintf(snu_param_strings[k++], "ABS_EPS_S_%s%s", flavors[j], flavors[i]);
       sprintf(snu_param_strings[k++], "ARG_EPS_S_%s%s", flavors[j], flavors[i]);
     }
-
+*/
   for (int i=0; i < n_flavors; i++)             // Propagation NSI
   {
     sprintf(snu_param_strings[k++], "EPS_M_%s%s", flavors[i], flavors[i]);
@@ -661,7 +661,7 @@ int snu_init_probability_engine(int _n_flavors, int _rotation_order[][2], int _p
       sprintf(snu_param_strings[k++], "ARG_EPS_M_%s%s", flavors[i], flavors[j]);
     }
   }
-
+/*
   for (int i=0; i < n_flavors; i++)             // Detector NSI
     for (int j=0; j < n_flavors; j++)
     {
@@ -675,7 +675,7 @@ int snu_init_probability_engine(int _n_flavors, int _rotation_order[][2], int _p
             n_params);
     return -2;
   }
-  printf("K End: %d",k);
+*/  printf("K End: %d",k);
 
 //  printf("Oscillation engine initialized for %d neutrino flavors\n", n_flavors);
 //  printf("Oscillation parameters are:\n");
@@ -720,6 +720,8 @@ int snu_set_oscillation_parameters(glb_params p, void *user_data)
 // matrix and part of the Hamiltonian.
 // ----------------------------------------------------------------------------
 {
+
+  printf("Setting");
   gsl_matrix_complex *R = gsl_matrix_complex_alloc(n_flavors, n_flavors);
   gsl_matrix_complex *T = gsl_matrix_complex_alloc(n_flavors, n_flavors);
   double complex (*_R)[n_flavors]
@@ -743,7 +745,7 @@ int snu_set_oscillation_parameters(glb_params p, void *user_data)
   dmsq[1]  = glbGetOscParams(p, GLB_DM_31);
 
   k = 6;
-  for (i=4; i <= n_flavors; i++)                // Mass squared differences
+/*  for (i=4; i <= n_flavors; i++)                // Mass squared differences
     dmsq[i-2] = glbGetOscParams(p, k++);
 
   for (i=1; i <= n_flavors; i++)                // Sterile mixing angles
@@ -762,7 +764,7 @@ int snu_set_oscillation_parameters(glb_params p, void *user_data)
     }
     epsilon_s_plus_1[i][i] += 1.0;
   }
-
+*/
   for (i=0; i < n_flavors; i++)                 // Propagation NSI
   {
     epsilon_m[i][i] = glbGetOscParams(p,k);
@@ -774,7 +776,7 @@ int snu_set_oscillation_parameters(glb_params p, void *user_data)
       k += 2;
     }
   }
-
+/*
   for (i=0; i < n_flavors; i++)                 // Detector NSI
   {
     for (j=0; j < n_flavors; j++)
@@ -784,7 +786,7 @@ int snu_set_oscillation_parameters(glb_params p, void *user_data)
     }
     epsilon_d_plus_1[i][i] += 1.0;
   }
-
+*/
   // Multiply rotation matrices
   gsl_matrix_complex_set_identity(U);
   for (i=0; i < n_angles; i++)
@@ -835,11 +837,12 @@ int snu_get_oscillation_parameters(glb_params p, void *user_data)
 // Returns the current set of oscillation parameters.
 // ----------------------------------------------------------------------------
 {
+  printf("Getting");
   int i, j, k;
   glbDefineParams(p, th[1][2], th[1][3], th[2][3], delta[0], dmsq[0], dmsq[1]);
   
   k = 6;
-  for (i=4; i <= n_flavors; i++)                // Mass squared differences
+ /* for (i=4; i <= n_flavors; i++)                // Mass squared differences
     glbSetOscParams(p, dmsq[i-2], k++);
 
   for (i=1; i <= n_flavors; i++)                // Sterile mixing angles
@@ -864,7 +867,7 @@ int snu_get_oscillation_parameters(glb_params p, void *user_data)
       }
       k += 2;
     }
-
+*/
   for (i=0; i < n_flavors; i++)                 // Propagation NSI
   {
     glbSetOscParams(p, epsilon_m[i][i], k);
@@ -876,7 +879,7 @@ int snu_get_oscillation_parameters(glb_params p, void *user_data)
       k += 2;
     }
   }
-  
+ /* 
   for (i=0; i < n_flavors; i++)                 // Detector NSI
     for (j=0; j < n_flavors; j++)
     {
@@ -892,7 +895,7 @@ int snu_get_oscillation_parameters(glb_params p, void *user_data)
       }
       k += 2;
     }
-
+*/
   return 0;
 }
 
@@ -1042,7 +1045,7 @@ int snu_S_matrix_cd(double E, double L, double rho, int cp_sign)
       }
       p++;
     }
-
+/*
   // Incorporate non-standard interactions in the source and in the detector
   if (cp_sign > 0)
   {
@@ -1070,7 +1073,7 @@ int snu_S_matrix_cd(double E, double L, double rho, int cp_sign)
         for (k=0; k < n_flavors; k++)
           _S[i][j] += conj(epsilon_d_plus_1[i][k]) * _T0[k][j];
   }
-
+*/
 // S --> epsilon_d_plus_1 . S . epsilon_s_plus_1
 // for anti-nu: S --> epsilon_d_plus_1^* . S . epsilon_s_plus_1^*
 
@@ -1151,7 +1154,7 @@ int snu_filtered_probability_matrix_cd(double P[MAX_FLAVORS][MAX_FLAVORS],
   // (for anti-neutrinos: \eps^{s,d} -> (\eps^{s,d})^*
   gsl_matrix_complex_set_zero(Q1);
   gsl_matrix_complex_set_zero(Q2);
-  if (cp_sign > 0)
+/*  if (cp_sign > 0)
   {
     for (i=0; i < n_flavors; i++)
       for (j=0; j < n_flavors; j++)
@@ -1174,7 +1177,7 @@ int snu_filtered_probability_matrix_cd(double P[MAX_FLAVORS][MAX_FLAVORS],
           _Q2[i][j] += conj(epsilon_d_plus_1[i][k]) * _Q[k][j];
   }
         
-
+*/
   // Calculate probability matrix (see GLoBES manual for a discussion of the algorithm)
   double phase, filter_factor;
   double t = -0.5/1.0e-18 * SQR(sigma) / SQR(E);
