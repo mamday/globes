@@ -51,62 +51,53 @@ int main(int argc, char *argv[])
   InitOutput(MYFILE,"Format: Log(10,s22th13)   deltacp   chi^2 \n"); 
 
 //NSI indices for OscParams, not certain how to get around needing these
-  int ABS_EPS_S_EE = 7;
-  int ARG_EPS_S_EE = 8;
-  int ABS_EPS_S_EMU = 9;
-  int ARG_EPS_S_EMU = 10;
-  int ABS_EPS_S_ETAU = 11;
-  int ARG_EPS_S_ETAU = 12;
-  int ABS_EPS_S_MUE = 13;
-  int ARG_EPS_S_MUE = 14;
-  int ABS_EPS_S_MUMU = 15;
-  int ARG_EPS_S_MUMU = 16;
-  int ABS_EPS_S_MUTAU = 17;
-  int ARG_EPS_S_MUTAU = 18;
-  int ABS_EPS_S_TAUE = 19;
-  int ARG_EPS_S_TAUE = 20;
-  int ABS_EPS_S_TAUMU = 21;
-  int ARG_EPS_S_TAUMU = 22;
-  int ABS_EPS_S_TAUTAU = 23;
-  int ARG_EPS_S_TAUTAU = 24;
-/*  int EPS_M_EE = 25;
-  int ABS_EPS_M_EMU = 26;
-  int ARG_EPS_M_EMU = 27;
-  int ABS_EPS_M_ETAU = 28;
-  int ARG_EPS_M_ETAU = 29;
-  int EPS_M_MUMU = 30;
-  int ABS_EPS_M_MUTAU = 31;
-  int ARG_EPS_M_MUTAU = 32;
-  int EPS_M_TAUTAU = 33;
-*/
-  int EPS_M_EE = 6;
-  int ABS_EPS_M_EMU = 7;
-  int ARG_EPS_M_EMU = 8;
-  int ABS_EPS_M_ETAU = 9;
-  int ARG_EPS_M_ETAU = 10;
-  int EPS_M_MUMU = 11;
-  int ABS_EPS_M_MUTAU = 12;
-  int ARG_EPS_M_MUTAU = 13;
-  int EPS_M_TAUTAU = 14;
+  int ABS_EPS_S_EE = 6;
+  int ARG_EPS_S_EE = 7;
+  int ABS_EPS_S_EMU = 8;
+  int ARG_EPS_S_EMU = 9;
+  int ABS_EPS_S_ETAU = 10;
+  int ARG_EPS_S_ETAU = 11;
+  int ABS_EPS_S_MUE = 12;
+  int ARG_EPS_S_MUE = 13;
+  int ABS_EPS_S_MUMU = 14;
+  int ARG_EPS_S_MUMU = 15;
+  int ABS_EPS_S_MUTAU = 16;
+  int ARG_EPS_S_MUTAU = 17;
+  int ABS_EPS_S_TAUE = 18;
+  int ARG_EPS_S_TAUE = 19;
+  int ABS_EPS_S_TAUMU = 20;
+  int ARG_EPS_S_TAUMU = 21;
+  int ABS_EPS_S_TAUTAU = 22;
+  int ARG_EPS_S_TAUTAU = 23;
+  int EPS_M_EE = 24;
+  int ABS_EPS_M_EMU = 25;
+  int ARG_EPS_M_EMU = 26;
+  int ABS_EPS_M_ETAU = 27;
+  int ARG_EPS_M_ETAU = 28;
+  int EPS_M_MUMU = 29;
+  int ABS_EPS_M_MUTAU = 30;
+  int ARG_EPS_M_MUTAU = 31;
+  int EPS_M_TAUTAU = 32;
 
-  int ABS_EPS_D_EE = 34;
-  int ARG_EPS_D_EE = 35;
-  int ABS_EPS_D_EMU = 36;
-  int ARG_EPS_D_EMU = 37;
-  int ABS_EPS_D_ETAU = 38;
-  int ARG_EPS_D_ETAU = 39;
-  int ABS_EPS_D_MUE = 40;
-  int ARG_EPS_D_MUE = 41;
-  int ABS_EPS_D_MUMU = 42;
-  int ARG_EPS_D_MUMU = 43;
-  int ABS_EPS_D_MUTAU = 44;
-  int ARG_EPS_D_MUTAU = 45;
-  int ABS_EPS_D_TAUE = 46;
-  int ARG_EPS_D_TAUE = 47;
-  int ABS_EPS_D_TAUMU = 48;
-  int ARG_EPS_D_TAUMU = 49;
-  int ABS_EPS_D_TAUTAU = 50;
-  int ARG_EPS_D_TAUTAU = 51;
+
+  int ABS_EPS_D_EE = 33;
+  int ARG_EPS_D_EE = 34;
+  int ABS_EPS_D_EMU = 35;
+  int ARG_EPS_D_EMU = 36;
+  int ABS_EPS_D_ETAU = 37;
+  int ARG_EPS_D_ETAU = 38;
+  int ABS_EPS_D_MUE = 39;
+  int ARG_EPS_D_MUE = 40;
+  int ABS_EPS_D_MUMU = 41;
+  int ARG_EPS_D_MUMU = 42;
+  int ABS_EPS_D_MUTAU = 43;
+  int ARG_EPS_D_MUTAU = 44;
+  int ABS_EPS_D_TAUE = 45;
+  int ARG_EPS_D_TAUE = 46;
+  int ABS_EPS_D_TAUMU = 47;
+  int ARG_EPS_D_TAUMU = 48;
+  int ABS_EPS_D_TAUTAU = 49;
+  int ARG_EPS_D_TAUTAU = 50;
   
   /* Define standard oscillation parameters */
   double theta12 = asin(sqrt(0.8))/2;
@@ -169,8 +160,8 @@ int main(int argc, char *argv[])
   snu_init_probability_engine_3(); 
 
 //NSI Params
-//  glbRegisterProbabilityEngine(6*(n_flavors)*(n_flavors) - n_flavors,
-  glbRegisterProbabilityEngine(15,
+  glbRegisterProbabilityEngine(6*(n_flavors)*(n_flavors) - n_flavors,
+//  glbRegisterProbabilityEngine(15,
 	&snu_probability_matrix,
 	&snu_set_oscillation_parameters,
 	&snu_get_oscillation_parameters,
@@ -181,7 +172,7 @@ int main(int argc, char *argv[])
   glb_params test_values = glbAllocParams();
 
   glbDefineParams(true_values,theta12,theta13,theta23,deltacp,sdm,ldm);
-/*
+
   glbSetOscParams(true_values,eps_s_ee,ABS_EPS_S_EE); 
   glbSetOscParams(true_values,aeps_s_ee,ARG_EPS_S_EE); 
   glbSetOscParams(true_values,eps_s_emu,ABS_EPS_S_EMU); 
@@ -200,7 +191,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(true_values,aeps_s_taumu,ARG_EPS_S_TAUMU); 
   glbSetOscParams(true_values,eps_s_tautau,ABS_EPS_S_TAUTAU); 
   glbSetOscParams(true_values,aeps_s_tautau,ARG_EPS_S_TAUTAU); 
-*/
+
   glbSetOscParams(true_values,eps_m_ee,EPS_M_EE); 
   glbSetOscParams(true_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(true_values,deps_m_emu,ARG_EPS_M_EMU); 
@@ -210,7 +201,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(true_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
   glbSetOscParams(true_values,deps_m_mutau,ARG_EPS_M_MUTAU); 
   glbSetOscParams(true_values,eps_m_tautau,EPS_M_TAUTAU); 
-/*
+
   glbSetOscParams(true_values,eps_d_ee,ABS_EPS_D_EE); 
   glbSetOscParams(true_values,aeps_d_ee,ARG_EPS_D_EE); 
   glbSetOscParams(true_values,eps_d_emu,ABS_EPS_D_EMU); 
@@ -229,11 +220,11 @@ int main(int argc, char *argv[])
   glbSetOscParams(true_values,aeps_d_taumu,ARG_EPS_D_TAUMU); 
   glbSetOscParams(true_values,eps_d_tautau,ABS_EPS_D_TAUTAU); 
   glbSetOscParams(true_values,aeps_d_tautau,ARG_EPS_D_TAUTAU); 
-*/
+
   glbSetDensityParams(true_values,1.0,GLB_ALL);
 
   glbDefineParams(test_values,theta12,theta13,theta23,deltacp,sdm,ldm);  
-/*
+
   glbSetOscParams(test_values,eps_s_ee,ABS_EPS_S_EE); 
   glbSetOscParams(test_values,aeps_s_ee,ARG_EPS_S_EE); 
   glbSetOscParams(test_values,eps_s_emu,ABS_EPS_S_EMU); 
@@ -252,7 +243,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(test_values,aeps_s_taumu,ARG_EPS_S_TAUMU); 
   glbSetOscParams(test_values,eps_s_tautau,ABS_EPS_S_TAUTAU); 
   glbSetOscParams(test_values,aeps_s_tautau,ARG_EPS_S_TAUTAU); 
-*/
+
   glbSetOscParams(test_values,eps_m_ee,EPS_M_EE); 
   glbSetOscParams(test_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(test_values,deps_m_emu,ARG_EPS_M_EMU); 
@@ -262,7 +253,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(test_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
   glbSetOscParams(test_values,deps_m_mutau,ARG_EPS_M_MUTAU); 
   glbSetOscParams(test_values,eps_m_tautau,EPS_M_TAUTAU); 
-/*
+
   glbSetOscParams(test_values,eps_d_ee,ABS_EPS_D_EE); 
   glbSetOscParams(test_values,aeps_d_ee,ARG_EPS_D_EE); 
   glbSetOscParams(test_values,eps_d_emu,ABS_EPS_D_EMU); 
@@ -281,7 +272,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(test_values,aeps_d_taumu,ARG_EPS_D_TAUMU); 
   glbSetOscParams(test_values,eps_d_tautau,ABS_EPS_D_TAUTAU); 
   glbSetOscParams(test_values,aeps_d_tautau,ARG_EPS_D_TAUTAU); 
-*/
+
   glbSetDensityParams(test_values,1.0,GLB_ALL);
 
   /* The simulated data are computed */
