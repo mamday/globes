@@ -35,7 +35,8 @@
 #include "snu.h"             /* NSI */
 
 /* If filename given, write to file; for empty filename write to screen */
-char MYFILE[]="test1.dat";
+char MYFILE[]="test1a.dat";
+char MYFILE1[]="test1b.dat";
 
 int main(int argc, char *argv[])
 { 
@@ -105,10 +106,15 @@ int main(int argc, char *argv[])
   double theta12 = 0.563942;
 //  double theta13 = asin(sqrt(0.001))/2;
   double theta13 = 0.154085;
+//  double theta13 = 1.4186;
 //  double theta23 = M_PI/4;
-  double theta23 = 0.684719;
-//  double deltacp = M_PI/2;
-  double deltacp = 0.0;
+// More Tau
+//  double theta23 = 0.684719;
+// More Mu
+  double theta23 = 0.88563;
+//  double deltacp = 3*M_PI/2;
+  double deltacp = M_PI/2;
+//  double deltacp = 0.0;
   double sdm = 7.54e-5;
   double ldm = 2.43e-3;
 
@@ -178,7 +184,12 @@ int main(int argc, char *argv[])
   glb_params true_values = glbAllocParams();
   glb_params test_values = glbAllocParams();
 
+//Inverted
+//  glbDefineParams(true_values,theta12,theta13,theta23,deltacp,sdm,-ldm+sdm);
+//Normal
   glbDefineParams(true_values,theta12,theta13,theta23,deltacp,sdm,ldm);
+//Modify Delta
+//  glbDefineParams(true_values,theta12,theta13,theta23,3*M_PI/2,sdm,ldm);
 
   glbSetOscParams(true_values,eps_s_ee,ABS_EPS_S_EE); 
   glbSetOscParams(true_values,aeps_s_ee,ARG_EPS_S_EE); 
@@ -203,6 +214,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(true_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(true_values,deps_m_emu,ARG_EPS_M_EMU); 
   glbSetOscParams(true_values,eps_m_etau,ABS_EPS_M_ETAU); 
+//  glbSetOscParams(true_values,0.2,ABS_EPS_M_ETAU); 
   glbSetOscParams(true_values,deps_m_etau,ARG_EPS_M_ETAU); 
   glbSetOscParams(true_values,eps_m_mumu,EPS_M_MUMU); 
   glbSetOscParams(true_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
@@ -289,13 +301,31 @@ int main(int argc, char *argv[])
   /* Iteration over all values to be computed */
   double thetheta13,x,y,res;    
     
-  for(x=-4.0;x<-2.0+0.01;x=x+2.0/50)
+  for(x=-4.0;x<-1.0+0.01;x=x+3.0/60)
   for(y=0.0;y<200.0+0.01;y=y+200.0/50)
   {
-      /* Set vector of test values */
+      // Set vector of test values 
       thetheta13=asin(sqrt(pow(10,x)))/2;
       glbSetOscParams(test_values,thetheta13,GLB_THETA_13);
       glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
+  
+      // Compute Chi^2 for all loaded experiments and all rules 
+      res=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+      AddToOutput(x,y,res);
+  }
+//  printf("%f",thetheta13);
+  glbSetOscParams(test_values,theta13,GLB_THETA_13);
+
+
+  InitOutput(MYFILE1,"Format: Log(10,s22th23)   deltacp   chi^2 \n"); 
+  double thetheta23;    
+  for(x=1;x<200.0+0.01;x=x+200.0/50)
+  for(y=0.0;y<360.0+0.01;y=y+360.0/90)
+  {
+      /* Set vector of test values */
+      thetheta23=asin(sqrt((0.6+(x*0.004))/2));
+      glbSetOscParams(test_values,thetheta23,GLB_THETA_23);
+      glbSetOscParams(test_values,y*(M_PI/180),GLB_DELTA_CP);
   
       /* Compute Chi^2 for all loaded experiments and all rules */
       res=glbChiSys(test_values,GLB_ALL,GLB_ALL);
@@ -305,6 +335,6 @@ int main(int argc, char *argv[])
   /* Destroy parameter vector(s) */
   glbFreeParams(true_values);
   glbFreeParams(test_values); 
-  
+  snu_free_probability_engine(); 
   exit(0);
 }
