@@ -114,9 +114,8 @@ int main(int argc, char *argv[])
 // More Mu
 //  double theta23 = 0.88563;
 //  double deltacp = 3*M_PI/2;
+  double deltacp = 0.0;
 //  double deltacp = M_PI/2;
-  double deltacp = M_PI;
-//  double deltacp = 0.0;
   double sdm = 7.54e-5;
   double ldm = 2.43e-3;
 
@@ -324,10 +323,12 @@ int main(int argc, char *argv[])
   glbSetOscParams(test_values,eps_m_ee,EPS_M_EE); 
   glbSetOscParams(test_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(test_values,deps_m_emu,ARG_EPS_M_EMU); 
-  glbSetOscParams(test_values,eps_m_etau,ABS_EPS_M_ETAU); 
+//  glbSetOscParams(test_values,eps_m_etau,ABS_EPS_M_ETAU); 
+  glbSetOscParams(test_values,0.2,ABS_EPS_M_ETAU); 
   glbSetOscParams(test_values,deps_m_etau,ARG_EPS_M_ETAU); 
   glbSetOscParams(test_values,eps_m_mumu,EPS_M_MUMU); 
   glbSetOscParams(test_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
+//  glbSetOscParams(test_values,0.01,ABS_EPS_M_MUTAU); 
   glbSetOscParams(test_values,deps_m_mutau,ARG_EPS_M_MUTAU); 
   glbSetOscParams(test_values,eps_m_tautau,EPS_M_TAUTAU); 
 
@@ -354,20 +355,28 @@ int main(int argc, char *argv[])
 
   /* Iteration over all values to be computed */
   double x,y,res1,res2;    
+// More Tau
+  double l_theta23 = 0.684719;
+// More Mu
+  double h_theta23 = 0.88563;
     
   for(y=0.0;y<360.0+0.01;y=y+360.0/120)
   {
       // Set vector of test values 
       glbSetOscParams(ntrue_values,y*M_PI/180.0,GLB_DELTA_CP);
+//      glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
       glbSetOscillationParameters(ntrue_values);
       glbSetRates();
 //      glbSetOscParams(ntrue_values,M_PI,GLB_DELTA_CP);
   
       // Compute Chi^2 for all loaded experiments and all rules 
-      glbSetOscParams(test_values,ldm,GLB_DM_31);
+//      glbSetOscParams(test_values,ldm,GLB_DM_31);
+//      glbSetOscParams(test_values,l_theta23,GLB_THETA_23);
       res1=glbChiSys(test_values,GLB_ALL,GLB_ALL);
-      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
-      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+//      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
+//      glbSetOscParams(test_values,h_theta23,GLB_THETA_23);
+//      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+      res2 = 0.0;
       AddToOutput(y,res1,res2);
   }
 
@@ -378,15 +387,19 @@ int main(int argc, char *argv[])
   {
       // Set vector of test values 
       glbSetOscParams(itrue_values,y*M_PI/180.0,GLB_DELTA_CP);
+//      glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
       glbSetOscillationParameters(itrue_values);
       glbSetRates();
 //      glbSetOscParams(ntrue_values,M_PI,GLB_DELTA_CP);
 
       // Compute Chi^2 for all loaded experiments and all rules 
-      glbSetOscParams(test_values,ldm,GLB_DM_31);
+//      glbSetOscParams(test_values,ldm,GLB_DM_31);
+//      glbSetOscParams(test_values,l_theta23,GLB_THETA_23);
       res1=glbChiSys(test_values,GLB_ALL,GLB_ALL);
-      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
-      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+//      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
+//      glbSetOscParams(test_values,h_theta23,GLB_THETA_23);
+//      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+      res2 = 0.0; 
       AddToOutput(y,res1,res2);
   }
 
