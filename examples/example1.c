@@ -216,6 +216,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(true_values,eps_m_etau,ABS_EPS_M_ETAU); 
 //  glbSetOscParams(true_values,0.2,ABS_EPS_M_ETAU); 
   glbSetOscParams(true_values,deps_m_etau,ARG_EPS_M_ETAU); 
+//  glbSetOscParams(true_values,M_PI/2,ARG_EPS_M_ETAU); 
   glbSetOscParams(true_values,eps_m_mumu,EPS_M_MUMU); 
   glbSetOscParams(true_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
   glbSetOscParams(true_values,deps_m_mutau,ARG_EPS_M_MUTAU); 
@@ -242,7 +243,10 @@ int main(int argc, char *argv[])
 
   glbSetDensityParams(true_values,1.0,GLB_ALL);
 
+//Normal
   glbDefineParams(test_values,theta12,theta13,theta23,deltacp,sdm,ldm);  
+//Inverted
+//  glbDefineParams(test_values,theta12,theta13,theta23,deltacp,sdm,-ldm+sdm);  
 
   glbSetOscParams(test_values,eps_s_ee,ABS_EPS_S_EE); 
   glbSetOscParams(test_values,aeps_s_ee,ARG_EPS_S_EE); 
@@ -299,14 +303,14 @@ int main(int argc, char *argv[])
   glbSetRates();
 
   /* Iteration over all values to be computed */
-  double thetheta13,x,y,res;    
+  double theetau,x,y,res;    
     
-  for(x=-4.0;x<-1.0+0.01;x=x+3.0/60)
+  for(x=-700.0;x<700.0+0.01;x=x+1400.0/280)
   for(y=0.0;y<200.0+0.01;y=y+200.0/50)
   {
       // Set vector of test values 
-      thetheta13=asin(sqrt(pow(10,x)))/2;
-      glbSetOscParams(test_values,thetheta13,GLB_THETA_13);
+      theetau=x*.001;
+      glbSetOscParams(test_values,theetau,ABS_EPS_M_ETAU); 
       glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
   
       // Compute Chi^2 for all loaded experiments and all rules 
@@ -314,7 +318,8 @@ int main(int argc, char *argv[])
       AddToOutput(x,y,res);
   }
 //  printf("%f",thetheta13);
-  glbSetOscParams(test_values,theta13,GLB_THETA_13);
+//  glbSetOscParams(test_values,theta13,GLB_THETA_13);
+  glbSetOscParams(test_values,0.0,ABS_EPS_M_ETAU); 
 
 
   InitOutput(MYFILE1,"Format: Log(10,s22th23)   deltacp   chi^2 \n"); 
