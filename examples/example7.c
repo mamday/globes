@@ -45,7 +45,11 @@ int main(int argc, char *argv[])
 
   /* Initialize experiment NFstandard.glb */
 //  glbInitExperiment("0709-nova.glb",&glb_experiment_list[0],&glb_num_of_exps); 
-  glbInitExperiment("NOvA.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+  glbInitExperiment("glb-nova.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("glb-t2k-old-rebinned.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("glb-t2k-new.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("glb-CHIPS20-7mrad-ME.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("NOvA.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("T2K.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("Reactor2.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("NFstandard.glb",&glb_experiment_list[0],&glb_num_of_exps); 
@@ -113,9 +117,10 @@ int main(int argc, char *argv[])
 //  double theta23 = 0.684719;
 // More Mu
 //  double theta23 = 0.88563;
-//  double deltacp = 3*M_PI/2;
+////////  double deltacp = 3*M_PI/2;
   double deltacp = 0.0;
 //  double deltacp = M_PI/2;
+//  double deltacp = 2*M_PI;
   double sdm = 7.54e-5;
   double ldm = 2.43e-3;
 
@@ -185,6 +190,9 @@ int main(int argc, char *argv[])
   glb_params ntrue_values = glbAllocParams();
   glb_params itrue_values = glbAllocParams();
   glb_params test_values = glbAllocParams();
+  glb_params input_errors = glbAllocParams();
+  glb_params central_values = glbAllocParams();
+  glb_params minimum = glbAllocParams();
 
 //Inverted
   glbDefineParams(itrue_values,theta12,theta13,theta23,deltacp,sdm,-ldm+sdm);
@@ -216,7 +224,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(ntrue_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(ntrue_values,deps_m_emu,ARG_EPS_M_EMU); 
   glbSetOscParams(ntrue_values,eps_m_etau,ABS_EPS_M_ETAU); 
-//  glbSetOscParams(ntrue_values,0.2,ABS_EPS_M_ETAU); 
+//  glbSetOscParams(ntrue_values,0.1,ABS_EPS_M_ETAU); 
   glbSetOscParams(ntrue_values,deps_m_etau,ARG_EPS_M_ETAU); 
 //  glbSetOscParams(ntrue_values,M_PI,ARG_EPS_M_ETAU); 
   glbSetOscParams(ntrue_values,eps_m_mumu,EPS_M_MUMU); 
@@ -268,7 +276,7 @@ int main(int argc, char *argv[])
   glbSetOscParams(itrue_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(itrue_values,deps_m_emu,ARG_EPS_M_EMU); 
   glbSetOscParams(itrue_values,eps_m_etau,ABS_EPS_M_ETAU); 
-//  glbSetOscParams(itrue_values,0.2,ABS_EPS_M_ETAU); 
+//  glbSetOscParams(itrue_values,0.1,ABS_EPS_M_ETAU); 
   glbSetOscParams(itrue_values,deps_m_etau,ARG_EPS_M_ETAU); 
 //  glbSetOscParams(itrue_values,M_PI,ARG_EPS_M_ETAU); 
   glbSetOscParams(itrue_values,eps_m_mumu,EPS_M_MUMU); 
@@ -323,8 +331,8 @@ int main(int argc, char *argv[])
   glbSetOscParams(test_values,eps_m_ee,EPS_M_EE); 
   glbSetOscParams(test_values,eps_m_emu,ABS_EPS_M_EMU); 
   glbSetOscParams(test_values,deps_m_emu,ARG_EPS_M_EMU); 
-//  glbSetOscParams(test_values,eps_m_etau,ABS_EPS_M_ETAU); 
-  glbSetOscParams(test_values,0.2,ABS_EPS_M_ETAU); 
+  glbSetOscParams(test_values,eps_m_etau,ABS_EPS_M_ETAU); 
+//  glbSetOscParams(test_values,0.2,ABS_EPS_M_ETAU); 
   glbSetOscParams(test_values,deps_m_etau,ARG_EPS_M_ETAU); 
   glbSetOscParams(test_values,eps_m_mumu,EPS_M_MUMU); 
   glbSetOscParams(test_values,eps_m_mutau,ABS_EPS_M_MUTAU); 
@@ -353,6 +361,19 @@ int main(int argc, char *argv[])
 
   glbSetDensityParams(test_values,1.0,GLB_ALL);
 
+  glb_projection myprojection = glbAllocProjection();
+//  glbDefineProjection(myprojection,GLB_FIXED,GLB_FIXED,GLB_FIXED,GLB_FIXED,
+  glbDefineProjection(myprojection,GLB_FIXED,GLB_FIXED,GLB_FIXED,GLB_FREE,
+   GLB_FIXED,GLB_FIXED);
+  int z;
+  for(z=6.0;z<50.0+0.01;z=z+44.0/44)
+  {
+    glbSetProjectionFlag(myprojection, GLB_FIXED, z);
+  }
+//  glbSetProjectionFlag(myprojection, GLB_FREE, ABS_EPS_M_ETAU);
+//  glbSetProjectionFlag(myprojection, GLB_FREE, ARG_EPS_M_ETAU);
+  glbSetDensityProjectionFlag(myprojection,GLB_FIXED,GLB_ALL);
+  glbSetProjection(myprojection);
   /* Iteration over all values to be computed */
   double x,y,res1,res2;    
 // More Tau
@@ -360,10 +381,16 @@ int main(int argc, char *argv[])
 // More Mu
   double h_theta23 = 0.88563;
     
-  for(y=0.0;y<360.0+0.01;y=y+360.0/120)
+  for(y=0.0;y<360.0+0.01;y=y+360.0/40)
   {
       // Set vector of test values 
+//      glbSetOscParams(ntrue_values,y*M_PI/180.0,ARG_EPS_M_ETAU);
+//      glbDefineParams(ntrue_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,ldm);
       glbSetOscParams(ntrue_values,y*M_PI/180.0,GLB_DELTA_CP);
+      glbDefineParams(central_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,ldm);
+      glbSetDensityParams(central_values,1.0,GLB_ALL);
+      glbSetCentralValues(central_values);
+
 //      glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
       glbSetOscillationParameters(ntrue_values);
       glbSetRates();
@@ -372,33 +399,53 @@ int main(int argc, char *argv[])
       // Compute Chi^2 for all loaded experiments and all rules 
 //      glbSetOscParams(test_values,ldm,GLB_DM_31);
 //      glbSetOscParams(test_values,l_theta23,GLB_THETA_23);
-      res1=glbChiSys(test_values,GLB_ALL,GLB_ALL);
-//      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
+//      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,M_PI,sdm*0.1,ldm/3);
+//      glbDefineParams(input_errors,theta12*0.1,0.0,0.0,0.0,sdm*0.1,0.0);
+//      glbSetDensityParams(input_errors,0.05,GLB_ALL);
+//      glbSetInputErrors(input_errors);
+//      res1=glbChiNP(test_values,NULL,GLB_ALL);
+      res1 = 0;
+//      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,2*M_PI,sdm*0.1,ldm/3);
+//      glbSetDensityParams(input_errors,0.05,GLB_ALL);
+//      glbSetInputErrors(input_errors);
+      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
 //      glbSetOscParams(test_values,h_theta23,GLB_THETA_23);
-//      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
-      res2 = 0.0;
+      res2=glbChiNP(test_values,NULL,GLB_ALL);
+//      res2 = 0.0;
       AddToOutput(y,res1,res2);
   }
+
 
   InitOutput(MYFILE1,"Inverted Format:  deltacp   NH chi^2 IH chi^2 \n");
   /* The simulated data are computed */
 
-  for(y=0.0;y<360.0+0.01;y=y+360.0/120.0)
+  for(y=0.0;y<360.0+0.01;y=y+360.0/40.0)
   {
       // Set vector of test values 
+//      glbDefineParams(itrue_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,-ldm+sdm);
+//      glbSetOscParams(itrue_values,y*M_PI/180.0,ARG_EPS_M_ETAU);
       glbSetOscParams(itrue_values,y*M_PI/180.0,GLB_DELTA_CP);
 //      glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
       glbSetOscillationParameters(itrue_values);
       glbSetRates();
+//      glbDefineParams(central_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,sdm-ldm);
+//      glbSetDensityParams(central_values,1.0,GLB_ALL);
+//      glbSetCentralValues(central_values);
 //      glbSetOscParams(ntrue_values,M_PI,GLB_DELTA_CP);
 
       // Compute Chi^2 for all loaded experiments and all rules 
-//      glbSetOscParams(test_values,ldm,GLB_DM_31);
+      glbSetOscParams(test_values,ldm,GLB_DM_31);
 //      glbSetOscParams(test_values,l_theta23,GLB_THETA_23);
-      res1=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+//      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,2*M_PI,sdm*0.1,ldm/3);
+//      glbSetDensityParams(input_errors,0.05,GLB_ALL);
+//      glbSetInputErrors(input_errors);
+      res1=glbChiNP(test_values,NULL,GLB_ALL);
 //      glbSetOscParams(test_values,-ldm+sdm,GLB_DM_31);
 //      glbSetOscParams(test_values,h_theta23,GLB_THETA_23);
-//      res2=glbChiSys(test_values,GLB_ALL,GLB_ALL);
+//      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,2*M_PI,sdm*0.1,ldm/3);
+//      glbSetDensityParams(input_errors,0.05,GLB_ALL);
+//      glbSetInputErrors(input_errors);
+//      res2=glbChiNP(test_values,NULL,GLB_ALL);
       res2 = 0.0; 
       AddToOutput(y,res1,res2);
   }
@@ -407,6 +454,9 @@ int main(int argc, char *argv[])
   glbFreeParams(ntrue_values);
   glbFreeParams(itrue_values);
   glbFreeParams(test_values); 
+  glbFreeParams(input_errors); 
+  glbFreeParams(minimum); 
+  glbFreeProjection(myprojection);
   snu_free_probability_engine(); 
   exit(0);
 }
