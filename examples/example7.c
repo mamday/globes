@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
 //  glbInitExperiment("0709-nova.glb",&glb_experiment_list[0],&glb_num_of_exps); 
   glbInitExperiment("glb-nova.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("glb-t2k-old-rebinned.glb",&glb_experiment_list[0],&glb_num_of_exps); 
-//  glbInitExperiment("glb-t2k-new.glb",&glb_experiment_list[0],&glb_num_of_exps); 
-//  glbInitExperiment("glb-CHIPS20-7mrad-ME.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+  glbInitExperiment("glb-t2k-new.glb",&glb_experiment_list[0],&glb_num_of_exps); 
+//  glbInitExperiment("glb-CHIPS100-7mrad-ME.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("NOvA.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("T2K.glb",&glb_experiment_list[0],&glb_num_of_exps); 
 //  glbInitExperiment("Reactor2.glb",&glb_experiment_list[0],&glb_num_of_exps); 
@@ -372,7 +372,7 @@ int main(int argc, char *argv[])
   }
 //  glbSetProjectionFlag(myprojection, GLB_FREE, ABS_EPS_M_ETAU);
 //  glbSetProjectionFlag(myprojection, GLB_FREE, ARG_EPS_M_ETAU);
-  glbSetDensityProjectionFlag(myprojection,GLB_FIXED,GLB_ALL);
+  glbSetDensityProjectionFlag(myprojection,GLB_FREE,GLB_ALL);
   glbSetProjection(myprojection);
   /* Iteration over all values to be computed */
   double x,y,res1,res2;    
@@ -400,9 +400,9 @@ int main(int argc, char *argv[])
 //      glbSetOscParams(test_values,ldm,GLB_DM_31);
 //      glbSetOscParams(test_values,l_theta23,GLB_THETA_23);
 //      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,M_PI,sdm*0.1,ldm/3);
-//      glbDefineParams(input_errors,theta12*0.1,0.0,0.0,0.0,sdm*0.1,0.0);
-//      glbSetDensityParams(input_errors,0.05,GLB_ALL);
-//      glbSetInputErrors(input_errors);
+      glbDefineParams(input_errors,theta12*0.1,0.0,0.0,2*M_PI,sdm*0.1,0.0);
+      glbSetDensityParams(input_errors,0.05,GLB_ALL);
+      glbSetInputErrors(input_errors);
 //      res1=glbChiNP(test_values,NULL,GLB_ALL);
       res1 = 0;
 //      glbDefineParams(input_errors,theta12*0.1,theta13*0.1,theta23*0.1,2*M_PI,sdm*0.1,ldm/3);
@@ -428,9 +428,9 @@ int main(int argc, char *argv[])
 //      glbSetOscParams(test_values,y*M_PI/180.0,GLB_DELTA_CP);
       glbSetOscillationParameters(itrue_values);
       glbSetRates();
-//      glbDefineParams(central_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,sdm-ldm);
-//      glbSetDensityParams(central_values,1.0,GLB_ALL);
-//      glbSetCentralValues(central_values);
+      glbDefineParams(central_values,theta12,theta13,theta23,y*M_PI/180.0,sdm,sdm-ldm);
+      glbSetDensityParams(central_values,1.0,GLB_ALL);
+      glbSetCentralValues(central_values);
 //      glbSetOscParams(ntrue_values,M_PI,GLB_DELTA_CP);
 
       // Compute Chi^2 for all loaded experiments and all rules 
